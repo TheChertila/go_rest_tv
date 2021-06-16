@@ -1,0 +1,19 @@
+services:
+    go_tv_market:
+        build: .
+        container_name: go_tv_market
+        ports:
+            - "3000:3000"
+        depends_on:
+            - "postgres"
+    postgres:
+        image: postgres
+        container_name: go_tv_market_postgres
+        restart: always
+        environment:
+            POSTGRES_USER: postgres
+            POSTGRES_PASSWORD: qwerty
+        ports:
+            - "5432:5432"
+        volumes: 
+            - ./init.sql:/docker-entrypoint-initdb.d/init.sql
